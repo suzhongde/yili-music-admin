@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { Quasar } from 'quasar';
+import { Quasar, Notify } from 'quasar';
 import router from './router';
 import store from './store';
 import './permission'; // permission control
@@ -21,6 +21,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 myApp.use(Quasar, {
-  plugins: {} // import Quasar plugins and add here
+  plugins: {
+    Notify
+  }
 });
 myApp.mount('#app');
