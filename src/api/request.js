@@ -24,6 +24,20 @@ instance.interceptors.request.use(
   }
 );
 
+instance.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    Notify.create({
+      type: 'negative',
+      message: error.message,
+      position: 'top'
+    });
+    return Promise.reject(error);
+  }
+);
+
 const { get, post, put } = instance;
 
 export { get, post, put };
