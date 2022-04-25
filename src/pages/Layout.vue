@@ -4,11 +4,18 @@
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> 猿力音乐 </q-toolbar-title>
+        <q-toolbar-title> 猿力音乐</q-toolbar-title>
         <q-space />
-        <q-avatar color="teal" text-color="white">{{
-          nicknameFirstWord
-        }}</q-avatar>
+        <q-avatar color="teal" text-color="white"
+          >{{ nicknameFirstWord }}
+          <q-menu fit>
+            <q-list style="min-width: 100px">
+              <q-item clickable v-close-popup @click="logout">
+                <q-item-section>退出</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-avatar>
       </q-toolbar>
     </q-header>
 
@@ -41,7 +48,7 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
-import { menuRoutes } from '../router/index.js';
+import { menuRoutes } from '../router';
 export default {
   name: 'Layout',
   setup() {
@@ -59,7 +66,9 @@ export default {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
       menuRoutes,
-      route
+      route,
+      logout: () =>
+        store.dispatch('user/logout').then(() => window.location.reload())
     };
   }
 };
@@ -67,6 +76,6 @@ export default {
 
 <style lang="sass">
 .menu-active
-  color: white!important
+  color: white !important
   background: #F2C037
 </style>
